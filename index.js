@@ -40,7 +40,7 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'application/javascript')
     response.statusCode = 200
     response.write(`
-      amount.innerText = amount.innerText - 1
+      ${query.callback}.call(undefined,'success')
     `)
     response.end()
   }else{  // 如果上面都不是用户请求的路径
