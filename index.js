@@ -36,15 +36,12 @@ var server = http.createServer(function(request, response){
   }else if(path === '/pay'){
     var amount = fs.readFileSync('./db', 'utf8')
     var newAmount = amount - 1
-    if(Math.random()>0.5){
-      fs.writeFileSync('./db', newAmount)
-      response.setHeader('Content-Type', 'image/jpg')
-      response.statusCode = 200
-      response.write(fs.readFileSync('./byx.jpg'))
-    }else{
-      response.statusCode = 400
-      response.write('fail')
-    }
+    fs.writeFileSync('./db', newAmount)
+    response.setHeader('Content-Type', 'application/javascript')
+    response.statusCode = 200
+    response.write(`
+      amount.innerText = amount.innerText - 1
+    `)
     response.end()
   }else{  // 如果上面都不是用户请求的路径
     response.statusCode = 404
